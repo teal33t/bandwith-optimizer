@@ -11,6 +11,21 @@
 ## Overview
 A Flask application for managing Quality of Service (QoS) policies on network devices. Provides web-based interface for configuring and monitoring QoS settings.
 
+
+### Cisco Routers and Switches
+| Model Series | IOS Version | Notes |
+|--------------|-------------|-------|
+| Catalyst 2960-X/XS | 15.2+ | Full support |
+| Catalyst 3750-X | 15.2+ | Full support |
+| Catalyst 3850 | 15.2+ | Full support |
+| Catalyst 9300 | 16.9+ | Basic functionality |
+
+**Requirements:**
+- SSHv2 access
+- SNMP v2c/v3
+- QoS capable IOS image
+
+
 ### Architecture
 The QoS Bandwidth Optimizer follows a modular architecture:
 
@@ -24,38 +39,20 @@ The QoS Bandwidth Optimizer follows a modular architecture:
 
 ## Features
 
-### 📊 Device Management
 - Centralized inventory of network devices
 - Automated discovery of device interfaces via SNMP
 - Connection status monitoring (SSH, SNMP, ICMP)
 - Bulk operations for multi-device configuration
-
-### ⚙️ QoS Policy Configuration
 - Visual policy creation wizards
 - Support for CBWFQ, LLQ, and WRED mechanisms
 - Traffic classification based on multiple criteria
 - Policy validation before deployment
 - Automatic CLI command generation
-
-### 📈 Bandwidth Monitoring
 - Real-time interface statistics collection
 - Historical bandwidth usage graphs
-- Traffic pattern analysis
-- Customizable time ranges (hourly, daily, weekly)
-- Export capabilities for reporting
-
-### 🗂️ Traffic Class Management
 - Predefined traffic classes for common applications
 - Custom traffic class creation
 - DSCP marking configuration
-- Application-based classification
-
-### 🔐 Security
-- Role-based access control
-- Secure credential storage with encryption
-- Audit logging of configuration changes
-- Session management and timeout controls
-
 
 ---
 
@@ -109,6 +106,36 @@ flask run --debug
 
 ---
 
+
+## CLI Commands
+
+| Command | Description | Options |
+|---------|-------------|---------|
+| `flask run` | Start development server | `--host`, `--port`, `--debug` |
+| `flask initdb` | Initialize database | `--force` to recreate tables |
+| `flask fake-add` | Add test data | `--count` for number of devices |
+| `flask fake-remove` | Clear test data | `--all` to remove everything |
+| `flask db upgrade` | Run database migrations | |
+| `flask db downgrade` | Revert database migrations | |
+| `flask translate` | Update translations | `--lang` for language |
+| `flask routes` | List all application routes | |
+
+### Custom Management Commands
+```bash
+# Collect bandwidth statistics for all devices
+flask collect-stats
+
+# Verify device connectivity
+flask check-devices
+
+# Export configuration report
+flask export-config --format=pdf
+```
+
+
+---
+
+
 ## Configuration
 Environment variables (set in `.env` file):
 
@@ -139,23 +166,6 @@ The application uses the following core models:
 - **PolicyEntry**: QoS mechanisms within policies
 - **PolicyApplication**: Association of policies to interfaces
 - **BandwidthStat**: Collected bandwidth statistics
-
----
-
-## Supported Devices
-
-### Cisco Routers and Switches
-| Model Series | IOS Version | Notes |
-|--------------|-------------|-------|
-| Catalyst 2960-X/XS | 15.2+ | Full support |
-| Catalyst 3750-X | 15.2+ | Full support |
-| Catalyst 3850 | 15.2+ | Full support |
-| Catalyst 9300 | 16.9+ | Basic functionality |
-
-**Requirements:**
-- SSHv2 access
-- SNMP v2c/v3
-- QoS capable IOS image
 
 ---
 
@@ -194,33 +204,6 @@ The application uses the following core models:
 
 ---
 
-## CLI Commands
-
-| Command | Description | Options |
-|---------|-------------|---------|
-| `flask run` | Start development server | `--host`, `--port`, `--debug` |
-| `flask initdb` | Initialize database | `--force` to recreate tables |
-| `flask fake-add` | Add test data | `--count` for number of devices |
-| `flask fake-remove` | Clear test data | `--all` to remove everything |
-| `flask db upgrade` | Run database migrations | |
-| `flask db downgrade` | Revert database migrations | |
-| `flask translate` | Update translations | `--lang` for language |
-| `flask routes` | List all application routes | |
-
-### Custom Management Commands
-```bash
-# Collect bandwidth statistics for all devices
-flask collect-stats
-
-# Verify device connectivity
-flask check-devices
-
-# Export configuration report
-flask export-config --format=pdf
-```
-
-
----
 
 ## Network Topology
 
