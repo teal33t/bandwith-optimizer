@@ -99,14 +99,23 @@ Environment variables (set in `.env` file):
 
 ## Network Topology
 
-```mermaid
-graph TD
-    A[Management Workstation\n(QoS Bandwidth Optimizer)] --> B[Core Router\n(QoS Policies)]
-    B --> C[Router Edge1]
-    B --> D[Router Edge2]
-    C --> E[Host1\n(VoIP Traffic)]
-    D --> F[Host3\n(Data Traffic)]
-    B --> G[Host2\n(Video Traffic)]
+```
+                   +-------------+
+                   | Management  |
+                   | Workstation |
+                   | (Your App)  |
+                   +------+------+
+                          |
+                          |
++--------+        +-------+-------+        +--------+
+| Router |--------| Core Router   |--------| Router |
+| Edge1  |        | (QoS Policies)|        | Edge2  |
++---+----+        +-------+-------+        +----+---+
+    |                     |                     |
++---+----+         +-----+------+         +----+---+
+| Host1  |         | Host2      |         | Host3  |
+| (VoIP) |         | (Video)    |         | (Data) |
++--------+         +------------+         +--------+
 ```
 
 ---
