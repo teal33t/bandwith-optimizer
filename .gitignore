@@ -12,3 +12,6 @@ __pycache__
 !.env.example
 .venv
 .DS_Store
+reports/*.pdf
+reports/*.txt
+reports/*.html
