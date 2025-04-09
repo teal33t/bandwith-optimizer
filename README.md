@@ -5,7 +5,7 @@
 ![Cisco](https://img.shields.io/badge/Supported-Cisco-orange)
 
 <div align="center">
-  <img src="app/static/img/bandwidth-icon.png" alt="QoS Bandwidth Optimizer Logo" width="200">
+  <img src="logo.jpg" alt="QoS Bandwidth Optimizer Logo" width="200">
 </div>
 
 ## Overview
@@ -20,8 +20,6 @@ A Flask application for managing Quality of Service (QoS) policies on network de
 - 🗂️ Traffic class management
 - 🔐 User authentication
 
-![Dashboard Preview](images/bandwidth-list.png)
-*Dashboard showing device bandwidth status and utilization*
 
 ---
 
@@ -29,8 +27,8 @@ A Flask application for managing Quality of Service (QoS) policies on network de
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-repo/qos-bandwidth-optimizer.git
-cd qos-bandwidth-optimizer
+git clone https://github.com/teal33t/bandwith-optimizer.git
+cd bandwith-optimizer
 
 # Create and activate virtual environment
 python -m venv venv
@@ -145,10 +143,6 @@ Environment variables (set in `.env` file):
 
 ## QoS Engines
 
-<div align="center">
-  <img src="images/drop-engine.png" alt="Drop Engine Configuration">
-  <p><em>Drop Engine configuration for packet handling</em></p>
-</div>
 
 <div align="center">
   <img src="images/mark-engine.png" alt="Mark Engine Advanced Configuration">
@@ -158,6 +152,14 @@ Environment variables (set in `.env` file):
   <img src="images/mark-engine4.png" alt="Mark Engine Advanced Configuration">
   <p><em>Mark Engine advanced configuration options</em></p>
 </div>
+<div align="center">
+  <img src="images/drop-engine.png" alt="Drop Engine Configuration">
+  <p><em>Drop Engine configuration for packet handling</em></p>
+</div>
+
+![Dashboard Preview](images/bandwidth-list.png)
+*Dashboard showing device bandwidth status and utilization*
+
 
 ## Appendix: QoS Terminology
 
