@@ -151,6 +151,10 @@ Environment variables (set in `.env` file):
 </div>
 
 <div align="center">
+  <img src="images/mark-engine.png" alt="Mark Engine Advanced Configuration">
+  <img src="images/mark-engine1.png" alt="Mark Engine Advanced Configuration">
+  <img src="images/mark-engine2.png" alt="Mark Engine Advanced Configuration">
+  <img src="images/mark-engine3.png" alt="Mark Engine Advanced Configuration">
   <img src="images/mark-engine4.png" alt="Mark Engine Advanced Configuration">
   <p><em>Mark Engine advanced configuration options</em></p>
 </div>
