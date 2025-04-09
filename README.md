@@ -111,9 +111,8 @@ Environment variables (set in `.env` file):
 
 ```
                    +-------------+
-                   | Management  |
-                   | Workstation |
-                   | (Your App)  |
+                   | Bandwidth   |
+                   | Optimizer   |
                    +------+------+
                           |
                           |
