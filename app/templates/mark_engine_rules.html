@@ -1,0 +1,123 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Mark Engine Rules</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="/markengine/wizard" class="btn btn-primary">
+                                <i class="fa fa-magic"></i> Create New Rule
+                            </a>
+                            <a href="/markengine/stats" class="btn btn-info">
+                                <i class="fa fa-chart-bar"></i> Statistics
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <!-- Traffic Classes -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Traffic Classes</h4>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>DSCP Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for traffic_class in traffic_classes %}
+                                    <tr>
+                                        <td>{{ traffic_class.id }}</td>
+                                        <td>{{ traffic_class.name }}</td>
+                                        <td>{{ traffic_class.description }}</td>
+                                        <td>{{ traffic_class.dscp_value }}</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4">No traffic classes defined</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Class Maps -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Class Maps</h4>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Traffic Class</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for class_map in class_maps %}
+                                    <tr>
+                                        <td>{{ class_map.id }}</td>
+                                        <td>{{ class_map.name }}</td>
+                                        <td>{{ class_map.description }}</td>
+                                        <td>{{ class_map.traffic_class.name if class_map.traffic_class else "None" }}</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4">No class maps defined</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Policy Maps -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Policy Maps</h4>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Created</th>
+                                        <th>Updated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for policy_map in policy_maps %}
+                                    <tr>
+                                        <td>{{ policy_map.id }}</td>
+                                        <td>{{ policy_map.name }}</td>
+                                        <td>{{ policy_map.description }}</td>
+                                        <td>{{ policy_map.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                        <td>{{ policy_map.updated_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="5">No policy maps defined</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

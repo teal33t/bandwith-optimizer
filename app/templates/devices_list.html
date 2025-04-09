@@ -1,0 +1,41 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Devices List</h4>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>IP Address</th>
+                    <th>SNMP Status</th>
+                    <th>Ping Status</th>
+                    <th>SSH Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for device in devices_info %}
+                <tr>
+                    <td>{{ device[0] }}</td>
+                    <td>{{ device[1] }}</td>
+                    <td><span class="label label-{{ 'success' if device[2] == 'green' else 'danger' }}">SNMP</span></td>
+                    <td><span class="label label-{{ 'success' if device[3] == 'green' else 'danger' }}">Ping</span></td>
+                    <td><span class="label label-{{ 'success' if device[4] == 'green' else 'danger' }}">SSH</span></td>
+                    <td>
+                        <a href="/devices/{{ device[0] }}/interfaces" class="btn btn-sm btn-primary">
+                            <i class="fa fa-network-wired"></i> Interfaces
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/devices/new" class="btn btn-primary">
+            <i class="fa fa-plus"></i> Add New Device
+        </a>
+    </div>
+</div>
+{% endblock %}

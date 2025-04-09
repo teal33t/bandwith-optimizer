@@ -1,0 +1,122 @@
+{% extends "appbuilder/base.html" %}
+
+{% block title %}Bandwidth Statistics - {{ device.ip }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Bandwidth Statistics for {{ device.ip }}</h1>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Interface Bandwidth</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="nav nav-tabs" role="tablist">
+                        {% for interface in interfaces %}
+                        <li role="presentation" {% if loop.first %}class="active"{% endif %}>
+                            <a href="#interface-{{ interface.id }}" aria-controls="interface-{{ interface.id }}" role="tab" data-toggle="tab">
+                                {{ interface.ifname }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+
+                    <div class="tab-content">
+                        {% for interface in interfaces %}
+                        <div role="tabpanel" class="tab-pane {% if loop.first %}active{% endif %}" id="interface-{{ interface.id }}">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4>{{ interface.ifname }}</h4>
+                                    {% if interface.description %}
+                                    <p>{{ interface.description }}</p>
+                                    {% endif %}
+                                    
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ url_for('DeviceManagementView.bandwidth', device_id=device.id, hours=1) }}" class="btn btn-default">1 Hour</a>
+                                        <a href="{{ url_for('DeviceManagementView.bandwidth', device_id=device.id, hours=6) }}" class="btn btn-default">6 Hours</a>
+                                        <a href="{{ url_for('DeviceManagementView.bandwidth', device_id=device.id, hours=24) }}" class="btn btn-default active">24 Hours</a>
+                                        <a href="{{ url_for('DeviceManagementView.bandwidth', device_id=device.id, hours=168) }}" class="btn btn-default">7 Days</a>
+                                    </div>
+                                    
+                                    <div class="bandwidth-chart" style="height: 300px; margin-top: 20px;">
+                                        <img src="{{ url_for('DeviceManagementView.bandwidth_chart', device_id=device.id, interface_id=interface.id) }}" alt="Bandwidth Chart" class="img-responsive">
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">Input Statistics</div>
+                                                <div class="panel-body">
+                                                    <table class="table table-striped">
+                                                        <tr>
+                                                            <th>Current Rate:</th>
+                                                            <td>{{ (interface.bandwidth_stats[-1].input_rate_kbps / 1000)|round(2) if interface.bandwidth_stats else 0 }} Mbps</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Average Rate:</th>
+                                                            <td>{{ (interface.bandwidth_stats|sum(attribute='input_rate_kbps') / interface.bandwidth_stats|length / 1000)|round(2) if interface.bandwidth_stats else 0 }} Mbps</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Maximum Rate:</th>
+                                                            <td>{{ (interface.bandwidth_stats|max(attribute='input_rate_kbps')|default(0) / 1000)|round(2) if interface.bandwidth_stats else 0 }} Mbps</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Total Packets:</th>
+                                                            <td>{{ interface.bandwidth_stats[-1].input_packets if interface.bandwidth_stats else 0 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Total Errors:</th>
+                                                            <td>{{ interface.bandwidth_stats|sum(attribute='input_errors') if interface.bandwidth_stats else 0 }}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">Output Statistics</div>
+                                                <div class="panel-body">
+                                                    <table class="table table-striped">
+                                                        <tr>
+                                                            <th>Current Rate:</th>
+                                                            <td>{{ (interface.bandwidth_stats[-1].output_rate_kbps / 1000)|round(2) if interface.bandwidth_stats else 0 }} Mbps</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Average Rate:</th>
+                                                            <td>{{ (interface.bandwidth_stats|sum(attribute='output_rate_kbps') / interface.bandwidth_stats|length / 1000)|round(2) if interface.bandwidth_stats else 0 }} Mbps</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Maximum Rate:</th>
+                                                            <td>{{ (interface.bandwidth_stats|max(attribute='output_rate_kbps')|default(0) / 1000)|round(2) if interface.bandwidth_stats else 0 }} Mbps</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Total Packets:</th>
+                                                            <td>{{ interface.bandwidth_stats[-1].output_packets if interface.bandwidth_stats else 0 }}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th>Total Errors:</th>
+                                                            <td>{{ interface.bandwidth_stats|sum(attribute='output_errors') if interface.bandwidth_stats else 0 }}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

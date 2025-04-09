@@ -1,0 +1,45 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Drop Engine Statistics</h4>
+    </div>
+    <div class="panel-body">
+        <h5>Available Devices</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>IP Address</th>
+                    <th>Connection Status</th>
+                    <th>SNMP Status</th>
+                    <th>ICMP Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for device in devices %}
+                <tr>
+                    <td>{{ device.id }}</td>
+                    <td>{{ device.ip }}</td>
+                    <td>{{ device.connection_status }}</td>
+                    <td>{{ device.snmp_status }}</td>
+                    <td>{{ device.icmp_status }}</td>
+                    <td>
+                        <a href="/devices/{{ device.id }}/interfaces" class="btn btn-sm btn-primary">
+                            <i class="fa fa-network-wired"></i> Interfaces
+                        </a>
+                        <a href="/devices/{{ device.id }}/bandwidth" class="btn btn-sm btn-info">
+                            <i class="fa fa-chart-line"></i> Bandwidth
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/dropengine/rules" class="btn btn-default">
+            <i class="fa fa-arrow-left"></i> Back to Rules
+        </a>
+    </div>
+</div>
+{% endblock %}

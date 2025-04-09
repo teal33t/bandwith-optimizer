@@ -1,0 +1,96 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Drop Engine Rules</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="/dropengine/wizard" class="btn btn-primary">
+                                <i class="fa fa-magic"></i> Create New WRED Policy
+                            </a>
+                            <a href="/dropengine/stats" class="btn btn-info">
+                                <i class="fa fa-chart-bar"></i> Statistics
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <!-- Policy Maps -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Policy Maps</h4>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Created</th>
+                                        <th>Updated</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for policy_map in policy_maps %}
+                                    <tr>
+                                        <td>{{ policy_map.id }}</td>
+                                        <td>{{ policy_map.name }}</td>
+                                        <td>{{ policy_map.description }}</td>
+                                        <td>{{ policy_map.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                        <td>{{ policy_map.updated_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="5">No policy maps defined</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- WRED Policy Entries -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>WRED Policy Entries</h4>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Policy Map</th>
+                                        <th>Class Map</th>
+                                        <th>Min Threshold</th>
+                                        <th>Max Threshold</th>
+                                        <th>Max Probability</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entry in policy_entries %}
+                                    <tr>
+                                        <td>{{ entry.id }}</td>
+                                        <td>{{ entry.policy_map.name if entry.policy_map else "None" }}</td>
+                                        <td>{{ entry.class_map.name if entry.class_map else "None" }}</td>
+                                        <td>{{ entry.wred_min_threshold }}</td>
+                                        <td>{{ entry.wred_max_threshold }}</td>
+                                        <td>{{ entry.wred_max_probability }}</td>
+                                    </tr>
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="6">No WRED policy entries defined</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

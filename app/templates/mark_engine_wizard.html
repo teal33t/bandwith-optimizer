@@ -1,0 +1,244 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>QoS Mark Engine Wizard</h4>
+                </div>
+                <div class="panel-body">
+                    <form method="POST" action="{{ url_for('MarkEngineView.wizard') }}" class="form-horizontal">
+                        <div class="wizard">
+                            <!-- Step 1: Traffic Class -->
+                            <div class="wizard-step">
+                                <h3>Step 1: Traffic Class</h3>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Traffic Class Name:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="traffic_class_name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Description:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="traffic_class_desc" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">DSCP Value:</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" name="dscp_value" class="form-control" min="0" max="63">
+                                        <span class="help-block">DSCP value (0-63)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 2: Class Map -->
+                            <div class="wizard-step">
+                                <h3>Step 2: Class Map</h3>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Class Map Name:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="class_map_name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Description:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="class_map_desc" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Match Criteria:</label>
+                                    <div class="col-sm-9">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="match_criteria" value="ip-precedence"> IP Precedence
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="match_criteria" value="dscp"> DSCP
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="match_criteria" value="protocol"> Protocol
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="match_criteria" value="access-group"> Access Group
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 3: Policy Map -->
+                            <div class="wizard-step">
+                                <h3>Step 3: Policy Map</h3>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Policy Map Name:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="policy_map_name" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Description:</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="policy_map_desc" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Step 4: QoS Mechanism -->
+                            <div class="wizard-step">
+                                <h3>Step 4: QoS Mechanism</h3>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Mechanism Type:</label>
+                                    <div class="col-sm-9">
+                                        <select name="mechanism_type" class="form-control" required>
+                                            {% for mechanism in qos_mechanisms %}
+                                            <option value="{{ mechanism }}">{{ mechanism }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Priority:</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" name="priority" class="form-control" value="0" min="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Bandwidth (%):</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" name="bandwidth_percent" class="form-control" min="1" max="100">
+                                        <span class="help-block">Percentage of available bandwidth</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Bandwidth (Kbps):</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" name="bandwidth_kbps" class="form-control" min="1">
+                                        <span class="help-block">Absolute bandwidth in Kbps</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-3 col-sm-9">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="is_priority"> Priority Queue
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- WRED Parameters -->
+                                <div id="wred-params" style="display: none;">
+                                    <h4>WRED Parameters</h4>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Min Threshold:</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" name="wred_min_threshold" class="form-control" min="1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Max Threshold:</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" name="wred_max_threshold" class="form-control" min="1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Max Probability (%):</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" name="wred_max_probability" class="form-control" min="1" max="100" step="0.1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="button" id="prev-step" class="btn btn-default" disabled>Previous</button>
+                                <button type="button" id="next-step" class="btn btn-primary">Next</button>
+                                <button type="submit" id="submit-wizard" class="btn btn-success" style="display: none;">Create QoS Policy</button>
+                                <a href="{{ url_for('MarkEngineView.rules') }}" class="btn btn-link">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.wizard-step {
+    display: none;
+}
+.wizard-step:first-child {
+    display: block;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var currentStep = 0;
+    var steps = document.querySelectorAll('.wizard-step');
+    var prevBtn = document.getElementById('prev-step');
+    var nextBtn = document.getElementById('next-step');
+    var submitBtn = document.getElementById('submit-wizard');
+    var mechanismSelect = document.querySelector('select[name="mechanism_type"]');
+    var wredParams = document.getElementById('wred-params');
+    
+    // Show/hide WRED parameters based on mechanism type
+    mechanismSelect.addEventListener('change', function() {
+        if (this.value === 'WRED') {
+            wredParams.style.display = 'block';
+        } else {
+            wredParams.style.display = 'none';
+        }
+    });
+    
+    // Initialize wizard navigation
+    function updateButtons() {
+        prevBtn.disabled = (currentStep === 0);
+        
+        if (currentStep === steps.length - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'inline-block';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            submitBtn.style.display = 'none';
+        }
+    }
+    
+    function showStep(stepIndex) {
+        steps.forEach(function(step, index) {
+            step.style.display = (index === stepIndex) ? 'block' : 'none';
+        });
+        currentStep = stepIndex;
+        updateButtons();
+    }
+    
+    prevBtn.addEventListener('click', function() {
+        if (currentStep > 0) {
+            showStep(currentStep - 1);
+        }
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        if (currentStep < steps.length - 1) {
+            showStep(currentStep + 1);
+        }
+    });
+    
+    // Initialize
+    showStep(0);
+});
+</script>
+{% endblock %}

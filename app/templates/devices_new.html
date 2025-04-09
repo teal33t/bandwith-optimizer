@@ -1,0 +1,34 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>Add New Device</h4>
+    </div>
+    <div class="panel-body">
+        <form method="POST" action="/devices/new">
+            <div class="form-group">
+                <label for="router_ip">Router IP</label>
+                <input type="text" class="form-control" id="router_ip" name="router_ip" required>
+            </div>
+            <div class="form-group">
+                <label for="ssh_username">SSH Username</label>
+                <input type="text" class="form-control" id="ssh_username" name="ssh_username" required>
+            </div>
+            <div class="form-group">
+                <label for="ssh_password">SSH Password</label>
+                <input type="password" class="form-control" id="ssh_password" name="ssh_password" required>
+            </div>
+            <div class="form-group">
+                <label for="snmp_comm_str">SNMP Community String</label>
+                <input type="text" class="form-control" id="snmp_comm_str" name="snmp_comm_str" required>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-save"></i> Add Device
+            </button>
+            <a href="/devices/list" class="btn btn-default">
+                <i class="fa fa-times"></i> Cancel
+            </a>
+        </form>
+    </div>
+</div>
+{% endblock %}
