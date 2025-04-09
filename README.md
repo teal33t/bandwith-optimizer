@@ -5,7 +5,7 @@
 ![Cisco](https://img.shields.io/badge/Supported-Cisco-orange)
 
 <div align="center">
-  <img src="logo.jpg" alt="QoS Bandwidth Optimizer Logo" width="200">
+  <img src="logo.jpg" alt="QoS Bandwidth Optimizer Logo" width="300">
 </div>
 
 ## Overview
