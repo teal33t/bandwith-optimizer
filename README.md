@@ -3,13 +3,30 @@
 ![Network QoS](https://img.shields.io/badge/Network-QoS-blue)
 ![Flask](https://img.shields.io/badge/Framework-Flask-green)
 ![Cisco](https://img.shields.io/badge/Supported-Cisco-orange)
+![Version](https://img.shields.io/badge/Version-1.0-brightgreen)
 
 <div align="center">
   <img src="logo.jpg" alt="QoS Bandwidth Optimizer Logo" width="300">
 </div>
 
+## Table of Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [CLI Commands](#cli-commands)
+- [Network Topology](#network-topology)
+- [Device Management](#device-management)
+- [QoS Engines](#qos-engines)
+- [Testing & Simulation](#testing--simulation)
+- [Appendix: QoS Terminology](#appendix-qos-terminology)
+- [Cautions and Disclaimers](#️-cautions-and-disclaimers)
+
 ## Overview
-A Flask application for managing Quality of Service (QoS) policies on network devices. Provides web-based interface for configuring and monitoring QoS settings.
+A Flask application for managing Quality of Service (QoS) policies on network devices. Provides web-based interface for configuring and monitoring QoS settings. This tool simplifies the complex task of QoS management, making it accessible to network administrators without deep QoS expertise.
+
+> **📚 New to QoS?** Check out our [What is QoS and How to Simulate](HOWTO_SIMULATE.md) guide for a comprehensive introduction to QoS concepts and testing with GNS3.
 
 
 
@@ -92,19 +109,6 @@ flask initdb
 flask run
 ```
 
-### Development Setup
-For development environments:
-
-```bash
-# Install development dependencies
-pip install -r requirements-dev.txt
-
-# Run tests
-pytest
-
-# Run with debug mode
-flask run --debug
-```
 
 ---
 
@@ -200,7 +204,7 @@ The application uses the following core models:
 4. Validate QoS configuration on devices
 
 <div align="center">
-  <img width="550"  src="images/mark-engine.png" alt="QoS Policy Configuration">
+  <img  src="images/mark-engine.png" alt="QoS Policy Configuration">
   <p><em>QoS policy configuration interface</em></p>
 </div>
 
@@ -244,21 +248,43 @@ The application uses the following core models:
 
 
 <div align="center">
-  <img width="450" src="images/mark-engine.png" alt="Mark Engine Advanced Configuration">
-  <img width="450" src="images/mark-engine1.png" alt="Mark Engine Advanced Configuration">
-  <img width="450" src="images/mark-engine2.png" alt="Mark Engine Advanced Configuration">
-  <img width="450" src="images/mark-engine3.png" alt="Mark Engine Advanced Configuration">
-  <img width="450" src="images/mark-engine4.png" alt="Mark Engine Advanced Configuration">
+  <img src="images/mark-engine.png" alt="Mark Engine Advanced Configuration">
+  <img src="images/mark-engine1.png" alt="Mark Engine Advanced Configuration">
+  <img src="images/mark-engine2.png" alt="Mark Engine Advanced Configuration">
+  <img src="images/mark-engine3.png" alt="Mark Engine Advanced Configuration">
+  <img src="images/mark-engine4.png" alt="Mark Engine Advanced Configuration">
   <p><em>Mark Engine advanced configuration options</em></p>
 </div>
 <div align="center">
-  <img width="450" src="images/drop-engine.png" alt="Drop Engine Configuration">
+  <img src="images/drop-engine.png" alt="Drop Engine Configuration">
   <p><em>Drop Engine configuration for packet handling</em></p>
 </div>
 
 ![Dashboard Preview](images/bandwidth-list.png)
 *Dashboard showing device bandwidth status and utilization*
 
+
+## Testing & Simulation
+
+The QoS Bandwidth Optimizer can be tested in a simulated environment before deployment to production networks. This allows you to validate QoS policies and configurations without risking disruption to live network traffic.
+
+### GNS3 Integration
+
+[GNS3](https://www.gns3.com/) provides an ideal environment for testing the QoS Bandwidth Optimizer without physical hardware. Our detailed guide walks you through setting up a test environment:
+
+- Creating a test topology with Cisco routers
+- Configuring SSH and SNMP access
+- Connecting the Bandwidth Optimizer to virtual devices
+- Generating test traffic to validate QoS policies
+- Troubleshooting common issues
+
+📘 **[View the complete GNS3 testing guide](HOWTO_SIMULATE.md)**
+
+### Other Testing Options
+
+- **EVE-NG**: Similar to GNS3, EVE-NG can be used to create virtual network topologies
+- **Cisco VIRL/CML**: Cisco's virtual labs provide accurate IOS behavior
+- **Lab Environment**: A small physical lab with 2-3 routers is ideal for final validation
 
 ## Appendix: QoS Terminology
 
