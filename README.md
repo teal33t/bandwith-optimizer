@@ -4,6 +4,10 @@
 ![Flask](https://img.shields.io/badge/Framework-Flask-green)
 ![Cisco](https://img.shields.io/badge/Supported-Cisco-orange)
 
+<div align="center">
+  <img src="app/static/img/bandwidth-icon.png" alt="QoS Bandwidth Optimizer Logo" width="200">
+</div>
+
 ## Overview
 A Flask application for managing Quality of Service (QoS) policies on network devices. Provides web-based interface for configuring and monitoring QoS settings.
 
@@ -15,6 +19,9 @@ A Flask application for managing Quality of Service (QoS) policies on network de
 - 📈 Real-time bandwidth monitoring
 - 🗂️ Traffic class management
 - 🔐 User authentication
+
+![Dashboard Preview](images/bandwidth-list.png)
+*Dashboard showing device bandwidth status and utilization*
 
 ---
 
@@ -84,6 +91,11 @@ Environment variables (set in `.env` file):
 4. Configure QoS policies through the web interface
 5. Monitor bandwidth usage in real-time
 
+<div align="center">
+  <img src="images/mark-engine.png" alt="QoS Policy Configuration">
+  <p><em>QoS policy configuration interface</em></p>
+</div>
+
 ---
 
 ## CLI Commands
@@ -118,7 +130,30 @@ Environment variables (set in `.env` file):
 +--------+         +------------+         +--------+
 ```
 
+![Traffic Classes](images/traffic-class.png)
+*Traffic class configuration for QoS policies*
+
 ---
+
+## Device Management
+
+![Device List](images/device-list.png)
+*Device management interface showing connected network devices*
+
+![Interface List](images/interfaces-list.png)
+*Network interfaces available for QoS configuration*
+
+## QoS Engines
+
+<div align="center">
+  <img src="images/drop-engine.png" alt="Drop Engine Configuration">
+  <p><em>Drop Engine configuration for packet handling</em></p>
+</div>
+
+<div align="center">
+  <img src="images/mark-engine4.png" alt="Mark Engine Advanced Configuration">
+  <p><em>Mark Engine advanced configuration options</em></p>
+</div>
 
 ## Appendix: QoS Terminology
 
