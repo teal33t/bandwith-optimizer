@@ -278,6 +278,107 @@ The application uses the following core models:
 - **Class Map**: Traffic classification criteria
 - **Marking**: Tagging packets with QoS info
 
+---
+
+## Testing with GNS3
+
+GNS3 (Graphical Network Simulator-3) provides an ideal environment for testing the QoS Bandwidth Optimizer without physical hardware. This guide helps you set up a test environment.
+
+### Prerequisites
+
+- GNS3 2.2.0 or later installed ([Download GNS3](https://www.gns3.com/software/download))
+- Cisco IOS images for routers (e.g., c7200, c3745)
+- At least 8GB RAM recommended for smooth simulation
+
+### Quick Setup Guide
+
+1. **Create a Test Topology**
+
+   ```
+   +-------------+         +------------+         +-------------+
+   | QoS Traffic |---------|   Router   |---------|  Bandwidth  |
+   | Generator   |         | (Cisco IOS)|         |  Optimizer  |
+   +-------------+         +------------+         +-------------+
+   ```
+
+   - Add 2-3 Cisco routers (c7200 recommended for QoS support)
+   - Connect routers with serial or Ethernet links
+   - Add a cloud or NAT object to connect to your host machine
+   - Add a simple host to generate traffic
+
+2. **Configure Router IP Addresses**
+
+   ```
+   # Example configuration for R1
+   Router> enable
+   Router# configure terminal
+   Router(config)# hostname R1
+   R1(config)# interface FastEthernet0/0
+   R1(config-if)# ip address 192.168.1.1 255.255.255.0
+   R1(config-if)# no shutdown
+   R1(config-if)# exit
+   ```
+
+3. **Enable SSH on Routers**
+
+   ```
+   R1(config)# ip domain-name test.local
+   R1(config)# crypto key generate rsa
+   R1(config)# username admin privilege 15 secret password
+   R1(config)# line vty 0 4
+   R1(config-line)# login local
+   R1(config-line)# transport input ssh
+   R1(config-line)# exit
+   ```
+
+4. **Configure SNMP**
+
+   ```
+   R1(config)# snmp-server community public RO
+   R1(config)# snmp-server location GNS3-Lab
+   R1(config)# snmp-server contact admin@test.local
+   ```
+
+5. **Connect Bandwidth Optimizer**
+
+   - Ensure your host machine can reach the GNS3 router IPs
+   - In the Bandwidth Optimizer app, add devices using the GNS3 router IPs
+   - Use the credentials configured in step 3
+   - Test connectivity with `flask check-devices`
+
+6. **Generate Test Traffic**
+
+   - Use iperf or similar tools on connected hosts
+   - For basic testing:
+     ```
+     # On traffic generator
+     ping 192.168.1.1 -s 1500 -t 1000
+     ```
+
+7. **Apply and Test QoS Policies**
+
+   - Create traffic classes for different protocols
+   - Define QoS policies through the web interface
+   - Apply policies to router interfaces
+   - Monitor bandwidth statistics with `flask collect-stats`
+   - Generate traffic and observe the effects of QoS policies
+
+### Troubleshooting
+
+- **Connection Issues**: Ensure GNS3 is properly configured to allow host-to-VM communication
+- **SNMP Failures**: Verify SNMP community strings match between router and application
+- **SSH Timeouts**: Check that VTY lines are properly configured for SSH access
+- **Performance Issues**: Reduce the number of simultaneous devices if GNS3 becomes slow
+
+### Recommended Test Scenarios
+
+1. **Congestion Testing**: Generate traffic exceeding link capacity to test QoS prioritization
+2. **Voice/Video Priority**: Test LLQ with simulated voice traffic
+3. **Bandwidth Allocation**: Verify CBWFQ percentages are properly applied
+4. **Packet Drop**: Test WRED functionality under congestion
+
+For more detailed GNS3 setup instructions, refer to the [GNS3 Documentation](https://docs.gns3.com/).
+
 
 ---
 
