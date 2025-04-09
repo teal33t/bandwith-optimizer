@@ -1,4 +1,4 @@
-# QoS Bandwidth Optimizer
+# Bandwidth Optimizer - QoS 
 
 ![Network QoS](https://img.shields.io/badge/Network-QoS-blue)
 ![Flask](https://img.shields.io/badge/Framework-Flask-green)
