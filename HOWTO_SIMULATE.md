@@ -1,7 +1,24 @@
-# What is QoS and How simulate Bandwidth Optimizer in GNS3?
+# QoS Concepts and Simulation Guide
 
+![Network QoS](https://img.shields.io/badge/Network-QoS-blue)
+![GNS3](https://img.shields.io/badge/Simulation-GNS3-orange)
+![Cisco](https://img.shields.io/badge/Devices-Cisco-red)
 
-Quality of Service refers to the ability of a network to provide different priorities to different applications, users, or data flows, or to guarantee a certain level of performance to a data flow. When implemented properly, QoS ensures that critical applications receive the network resources they need, even during periods of network congestion.
+> **📌 Note:** This guide is a companion to the [QoS Bandwidth Optimizer](README.md) application. It provides background on QoS concepts and detailed instructions for testing in a simulated environment.
+
+## Table of Contents
+- [Understanding QoS](#understanding-qos)
+- [Core QoS Mechanisms](#core-qos-mechanisms-explained)
+- [QoS Management Challenges](#the-challenge-of-qos-management)
+- [QoS Bandwidth Optimizer Overview](#introducing-qos-bandwidth-optimizer)
+- [Implementation Architecture](#implementation-architecture)
+- [Real-World Benefits](#real-world-benefits)
+- [Best Practices](#implementation-best-practices)
+- [Testing with GNS3](#testing-with-gns3)
+
+## Understanding QoS
+
+Quality of Service (QoS) refers to the ability of a network to provide different priorities to different applications, users, or data flows, or to guarantee a certain level of performance to a data flow. When implemented properly, QoS ensures that critical applications receive the network resources they need, even during periods of network congestion.
 
 ### Why QoS Matters More Than Ever
 
