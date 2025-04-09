@@ -198,7 +198,7 @@ The application uses the following core models:
 4. Validate QoS configuration on devices
 
 <div align="center">
-  <img src="images/mark-engine.png" alt="QoS Policy Configuration">
+  <img width="550"  src="images/mark-engine.png" alt="QoS Policy Configuration">
   <p><em>QoS policy configuration interface</em></p>
 </div>
 
@@ -242,15 +242,15 @@ The application uses the following core models:
 
 
 <div align="center">
-  <img src="images/mark-engine.png" alt="Mark Engine Advanced Configuration">
-  <img src="images/mark-engine1.png" alt="Mark Engine Advanced Configuration">
-  <img src="images/mark-engine2.png" alt="Mark Engine Advanced Configuration">
-  <img src="images/mark-engine3.png" alt="Mark Engine Advanced Configuration">
-  <img src="images/mark-engine4.png" alt="Mark Engine Advanced Configuration">
+  <img width="450" src="images/mark-engine.png" alt="Mark Engine Advanced Configuration">
+  <img width="450" src="images/mark-engine1.png" alt="Mark Engine Advanced Configuration">
+  <img width="450" src="images/mark-engine2.png" alt="Mark Engine Advanced Configuration">
+  <img width="450" src="images/mark-engine3.png" alt="Mark Engine Advanced Configuration">
+  <img width="450" src="images/mark-engine4.png" alt="Mark Engine Advanced Configuration">
   <p><em>Mark Engine advanced configuration options</em></p>
 </div>
 <div align="center">
-  <img src="images/drop-engine.png" alt="Drop Engine Configuration">
+  <img width="450" src="images/drop-engine.png" alt="Drop Engine Configuration">
   <p><em>Drop Engine configuration for packet handling</em></p>
 </div>
 
@@ -280,44 +280,6 @@ The application uses the following core models:
 
 
 ---
-
-## TODO List: Device Interaction Improvements
-
-- [ ] **Configuration Verification**
-  - Implement verification that configurations were successfully applied
-  - Add functionality to read back and validate applied QoS policies
-  - Create status reporting for configuration application
-
-- [ ] **Error Recovery & Rollback**
-  - Implement transaction-based configuration with rollback capability
-  - Add automatic restoration of previous configuration if deployment fails
-  - Create configuration checkpoints before applying changes
-
-- [ ] **Connection Resilience**
-  - Enhance handling of network timeouts and connection failures
-  - Implement automatic reconnection logic
-  - Add session persistence and recovery mechanisms
-
-- [ ] **Configuration Conflict Detection**
-  - Add logic to detect conflicting QoS policies on the same interface
-  - Implement checks for overlapping traffic classifications
-  - Create validation for policy compatibility
-
-- [ ] **Device State Validation**
-  - Add pre-checks to ensure device is ready for configuration
-  - Implement validation of device capabilities before applying QoS features
-  - Create detection of device resource constraints
-
-- [ ] **Secure Credential Handling**
-  - Improve key management for credential encryption
-  - Implement credential rotation and expiration
-  - Add protection against credential exposure in logs
-
-- [ ] **Command Rate Limiting**
-  - Implement protection against overwhelming devices with commands
-  - Add logic to pace configuration commands based on device capabilities
-  - Create queuing system for device interactions
-
 
 
 ## ⚠️ Cautions and Disclaimers
