@@ -105,4 +105,4 @@ IMG_UPLOAD_URL = "/static/uploads/"
 # Theme configuration
 # these are located on static/appbuilder/css/themes
 # you can create your own and easily use them placing them on the same dir structure to override
-APP_THEME = "flatly.css"  # A clean, modern theme
+APP_THEME = "readable.css"  # A clean, modern theme
